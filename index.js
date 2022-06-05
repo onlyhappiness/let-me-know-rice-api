@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-// const routes = require('./routes');
+const routes = require('./routes');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors(corsOption));
 
-// app.use('/', routes);
+app.use('/', routes);
 app.get('/', (req, res, next) => {
   return res.status(200).send('Welcome');
 });
