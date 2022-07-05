@@ -4,12 +4,16 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
+// env 사용
 const dotenv = require('dotenv');
 dotenv.config();
 
-const app = express();
-const port = 3200;
+const routes = require('./routes');
 
+const app = express();
+const port = 3210;
+
+// corsOption
 const corsOption = {
   origin: '*',
   credential: true,
@@ -30,6 +34,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors(corsOption));
 
+app.use('/', routes);
 app.get('/', (req, res, next) => {
   return res.status(200).send('Welcome to Let Me Know Rice Server');
 });
