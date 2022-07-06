@@ -1,4 +1,4 @@
-const { User } = require('../../models/User');
+const { User } = require("../../models/User");
 
 module.exports = async (req, res, next) => {
   // TODO: Try-catch middleware 로 빼기
@@ -12,13 +12,13 @@ module.exports = async (req, res, next) => {
     });
 
     return res.status(200).send({
-      message: '로그인 성공',
+      message: "로그인 성공",
       data: null,
     });
   } catch (err) {
     console.log(err);
     return res.status(500).send({
-      message: '오류',
+      message: "오류",
       data: err,
     });
   }
