@@ -1,4 +1,4 @@
-const { User } = require('../../models/User');
+const { User } = require("../../models/user");
 
 module.exports = async (req, res, next) => {
   const user = new User(req.body);
@@ -10,12 +10,12 @@ module.exports = async (req, res, next) => {
     if (err) {
       console.log(err);
       return res.status(500).send({
-        message: '회원 가입 실패',
+        message: "회원 가입 실패",
         data: null,
       });
     }
     return res.status(200).send({
-      message: '회원 가입 성공',
+      message: "회원 가입 성공",
     });
   });
 };
