@@ -8,11 +8,14 @@ const shopSchema = mongoose.Schema({
   },
   // 장소
   location: {
-    type: "Point",
-    coordinates: [126.8759347, 33.3765812],
+    type: {
+      type: String,
+      default: "Point",
+    },
+    coordinates: [Number],
   },
-  // 썸네일
-  thumbnail: {},
+  // // 썸네일
+  // thumbnail: {},
 });
 
 const Shop = mongoose.model("Shop", shopSchema);
