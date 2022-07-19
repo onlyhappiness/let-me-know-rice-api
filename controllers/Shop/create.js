@@ -1,7 +1,6 @@
 const { Shop } = require("../../models/shop");
 
 // TODO: Location x, y, thumbNail,
-
 module.exports = async (req, res, next) => {
   const shop = new Shop(req.body);
 
