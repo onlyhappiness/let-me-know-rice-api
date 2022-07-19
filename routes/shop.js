@@ -11,4 +11,7 @@ const {
 // 음식점 등록
 router.post("/create", tryCatch(shopCreate));
 
+// 음식점 리스트
+router.get("/lists", tryCatch(shopLists));
+
 module.exports = router;
