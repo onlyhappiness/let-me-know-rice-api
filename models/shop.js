@@ -7,15 +7,18 @@ const shopSchema = mongoose.Schema({
     required: true,
   },
   // 장소
-  location: {
-    type: {
-      type: String,
-      default: "Point",
-    },
-    coordinates: [Number],
-  },
+  // location: {
+  //   type: {
+  //     type: String,
+  //     default: "Point",
+  //   },
+  //   coordinates: [Number],
+  // },
   // // 썸네일
-  // thumbnail: {},
+  thumbnail: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 const Shop = mongoose.model("Shop", shopSchema);
