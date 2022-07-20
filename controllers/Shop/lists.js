@@ -6,11 +6,10 @@ module.exports = async (req, res, next) => {
     if (err) {
       console.log(err);
       return next(unknownError);
-    } else {
-      return res.status(200).send({
-        message: "밥 줘 음식점 요청",
-        data: shopList,
-      });
     }
+    return res.status(200).send({
+      message: "밥 줘 음식점 요청",
+      data: shopList,
+    });
   });
 };
