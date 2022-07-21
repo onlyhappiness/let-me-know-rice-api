@@ -6,13 +6,13 @@ module.exports = async (req, res, next) => {
 
   // 회원 가입 시 데이터 저장
   // TODO: 1. 만약 같은 email이 있으면 같은 이메일이 있다는 에러를 보냄 [o]
-  // TODO: 2. 비밀번호 암호화 처리
+  // TODO: 2. 비밀번호 암호화 처리 [o]
   User.findOne(
     {
       email: user.email,
     },
     (err, userData) => {
-      if (userData) {
+      if (userData?.email) {
         return next(ExistingUsers);
       }
 
@@ -21,8 +21,7 @@ module.exports = async (req, res, next) => {
           console.log(err);
           return next(unknownError);
         }
-        // 패스워드 암호화
-        // console.log("userInfo====", userInfo.password);
+
         return res.status(200).send({
           message: "회원 가입 성공",
           data: null,
