@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   generateAccessToken: (data) => {
-    return jwt.sign(data, process.env.ACCESS_SECRET);
+    return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
   },
 
   generateRefreshToken: (data) => {
