@@ -1,5 +1,10 @@
 module.exports = {
   // 401
+  noMatchUser: {
+    status: 401,
+    message: "아이디 또는 비밀번호를 확인해주세요",
+    errorcode: "401",
+  },
   invalidToken: {
     status: 401,
     message: "올바르지 않은 토큰입니다.",
