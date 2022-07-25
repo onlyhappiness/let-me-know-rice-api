@@ -6,12 +6,11 @@ const tryCatch = require("../middlewares/tryCatch");
 const {
   userSignUp, // 유저 회원가입
   userLogin, // 유저 로그인
+  userLogout, // 유저 로그아웃
 } = require("../controllers/index");
 
-// 유저 회원가입
 router.post("/signup", tryCatch(userSignUp));
-
-// 유저 로그인
 router.post("/login", tryCatch(userLogin));
+router.delete("/logout", tryCatch(userLogout));
 
 module.exports = router;
