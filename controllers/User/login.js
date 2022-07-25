@@ -26,12 +26,16 @@ module.exports = async (req, res, next) => {
 
       const accessToken = generateAccessToken(userData?._id.toJSON());
 
-      return res.status(200).send({
-        message: "Login Success",
-        data: {
-          accessToken,
-        },
-      });
+      // TODO: 로그인 했을 경우, 쿠키에 저장
+      return res
+        .status(200) //
+        .cookie("x_auth", accessToken) // 쿠키에 저장
+        .send({
+          message: "Login Success",
+          data: {
+            accessToken,
+          },
+        });
     }
   );
 };
