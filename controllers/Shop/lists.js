@@ -1,16 +1,15 @@
 const { Shop } = require("../../models/shop");
+const { unknownError } = require("../../error/errorcode");
 
 module.exports = async (req, res, next) => {
-  try {
-    res.status(200).send({
-      meessage: "리스트를 보여줘",
-      data: null,
+  Shop.find((err, shopList) => {
+    if (err) {
+      console.log(err);
+      return next(unknownError);
+    }
+    return res.status(200).send({
+      message: "밥 줘 음식점 요청",
+      data: shopList,
     });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({
-      message: "에러",
-      data: null,
-    });
-  }
+  });
 };
