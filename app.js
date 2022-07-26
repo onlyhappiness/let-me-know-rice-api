@@ -37,7 +37,7 @@ app.use(cors(corsOption));
 app.use("/", routes);
 app.get("/", (req, res, next) => {
   console.log("Welcome to Let Me Know Rice Server");
-  return res.status(200).send("Welcome to Let Me Know Rice Server");
+  return res.send("Welcome to Let Me Know Rice Server");
 });
 
 // 없는 API 요청
