@@ -22,12 +22,12 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  token: {
-    type: String,
-  },
-  tokenExp: {
-    type: Number,
-  },
+  // token: {
+  //   type: String,
+  // },
+  // tokenExp: {
+  //   type: Number,
+  // },
 });
 
 // 비밀번호 암호화
