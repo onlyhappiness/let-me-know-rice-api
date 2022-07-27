@@ -15,8 +15,8 @@ const port = process.env.PORT || 3210;
 
 // corsOption
 const corsOption = {
-  origin: "*",
-  credential: true,
+  origin: true,
+  credentials: true,
 };
 
 const mongoose = require("mongoose");
