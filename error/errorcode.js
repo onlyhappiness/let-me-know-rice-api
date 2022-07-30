@@ -22,6 +22,11 @@ module.exports = {
   },
 
   // 404
+  notFoundApi: {
+    status: 404,
+    message: "API를 확인해주세요",
+    errorCode: "404",
+  },
   notFoundUser: {
     status: 404,
     message: "요청하신 유저가 존재하지 않습니다.",
