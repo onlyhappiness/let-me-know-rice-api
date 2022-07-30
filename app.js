@@ -1,8 +1,9 @@
 const express = require("express");
+const { notFoundApi } = require("./error/errorcode");
+
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const morgan = require("morgan");
 
 // env 사용
 const dotenv = require("dotenv");
@@ -42,9 +43,7 @@ app.get("/", (req, res, next) => {
 
 // 없는 API 요청
 app.use((req, res, next) => {
-  return res.status(404).send({
-    message: "API를 확인해주세요",
-  });
+  return next(notFoundApi);
 });
 
 app.use((err, req, res, next) => {
