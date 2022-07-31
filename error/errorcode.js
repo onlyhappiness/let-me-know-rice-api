@@ -32,6 +32,11 @@ module.exports = {
     message: "요청하신 유저가 존재하지 않습니다.",
     errorCode: "404",
   },
+  notFoundShop: {
+    status: 404,
+    message: "요청하신 상점이 존재하지 않습니다.",
+    errorCode: "404",
+  },
 
   // 500
   unknownError: {

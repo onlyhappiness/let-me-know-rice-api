@@ -8,4 +8,5 @@ module.exports = {
   // Shop
   shopCreate: require("./Shop/create"),
   shopLists: require("./Shop/lists"),
+  shopInfo: require("./Shop/detail"),
 };
