@@ -11,8 +11,8 @@ module.exports = async (req, res, next) => {
       return next(unknownError);
     }
     return res.status(200).send({
-      message: "Success to create Shop",
-      data: null,
+      message: "상점 등록 요청 성공",
+      data: shopInfo,
     });
   });
 };
