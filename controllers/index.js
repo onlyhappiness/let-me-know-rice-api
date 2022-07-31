@@ -9,4 +9,7 @@ module.exports = {
   shopCreate: require("./Shop/create"),
   shopLists: require("./Shop/lists"),
   shopInfo: require("./Shop/detail"),
+
+  // menu
+  menuCreate: require("./Menu/create"),
 };

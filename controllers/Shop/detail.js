@@ -5,18 +5,14 @@ const { Shop } = require("../../models/shop");
 module.exports = async (req, res, next) => {
   const objectId = req.params.id;
 
-  Shop.findById({ _id: objectId }, (err, info) => {
-    if (err) {
-      return next(unknownError);
-    }
+  const shopDetail = await Shop.findById({ _id: objectId }).populate("menus");
 
-    if (!info) {
-      return next(notFoundShop);
-    }
+  if (!shopDetail) {
+    return next(notFoundShop);
+  }
 
-    return res.status(200).send({
-      message: "상점 상세 정보 요청",
-      data: info,
-    });
+  return res.status(200).send({
+    message: "상점 상세 정보 요청",
+    data: shopDetail,
   });
 };

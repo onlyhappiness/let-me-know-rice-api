@@ -23,6 +23,12 @@ const shopSchema = mongoose.Schema({
 
   // // 썸네일
   // thumbnail: {},
+  menus: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Menu",
+    },
+  ],
 });
 
 const Shop = mongoose.model("Shop", shopSchema);
