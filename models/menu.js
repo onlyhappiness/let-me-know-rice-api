@@ -14,6 +14,13 @@ const menuSchema = mongoose.Schema({
   },
   // 사진
   // image: {},
+
+  // shop: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "Shop",
+  //   },
+  // ],
 });
 
 const Menu = mongoose.model("Menu", menuSchema);
