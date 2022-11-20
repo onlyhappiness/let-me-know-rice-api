@@ -38,6 +38,8 @@ async function bootstrap() {
     credentials: true,
   });
 
+  // TODO: passport
+
   const port = process.env.PORT || 3000;
 
   await app.listen(port);

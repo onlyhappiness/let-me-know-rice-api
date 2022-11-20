@@ -33,13 +33,16 @@
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.3",
     "express-basic-auth": "^1.2.1",
+    "joi": "^17.7.0",
     "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.6.0",
-    "typeorm": "^0.3.10"
+    "typeorm": "^0.3.10",
+    "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
