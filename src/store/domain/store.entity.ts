@@ -1,12 +1,13 @@
 import {
+  Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'restaurant' })
-export class Restaurant {
+@Entity({ name: 'store' })
+export class Store {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -17,14 +18,38 @@ export class Restaurant {
   updatedAt: Date;
 
   // 가게 이름
+  @Column()
+  name: string;
+
   // 음식 카테고리
+  @Column()
+  foodCategory: string;
+
   // 주소
-  // 가게사진
+  @Column()
+  address: string;
+
   // 전화번호
+  @Column()
+  phone: string;
+
   // 소개글
+  @Column()
+  content: string;
+
   // 운영시간
+  @Column()
+  operationHours: string;
+
   // 휴무일
-  // 평점
+  @Column()
+  closedDays: string;
+
   // 찜수
+
   // 리뷰수
+
+  // 평점
+
+  // 가게사진
 }
