@@ -20,10 +20,6 @@ export class Favorite {
   updatedAt: Date;
 
   // 유저 id
-  @ManyToOne(() => User, (user) => user.id, {})
-  User: User;
 
   // 가게 id
-  @ManyToOne(() => Store, (store) => store.id, {})
-  Store: Store;
 }

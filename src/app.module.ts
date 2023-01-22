@@ -6,9 +6,17 @@ import { MenuModule } from './menu/menu.module';
 import { FavoriteModule } from './favorite/favorite.module';
 import { StoreModule } from './store/store.module';
 import { ReviewModule } from './review/review.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UserModule, MenuModule, FavoriteModule, StoreModule, ReviewModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    UserModule,
+    MenuModule,
+    FavoriteModule,
+    StoreModule,
+    ReviewModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

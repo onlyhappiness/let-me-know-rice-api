@@ -1,9 +1,7 @@
-import { Store } from 'src/store/domain/store.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -20,8 +18,6 @@ export class Menu {
   updatedAt: Date;
 
   // 가게 아이디
-  @OneToMany(() => Store, (store) => store.id)
-  Store: Store;
 
   // 카테고리
   @Column()

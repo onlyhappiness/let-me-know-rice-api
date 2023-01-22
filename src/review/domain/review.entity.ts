@@ -30,8 +30,6 @@ export class Review {
   Store: Store;
 
   // 메뉴 아이디
-  @ManyToOne(() => Menu, (menu) => menu.id)
-  Menu: Menu;
 
   // 내용
   @Column()
