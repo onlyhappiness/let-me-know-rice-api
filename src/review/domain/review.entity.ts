@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -22,14 +23,19 @@ export class Review {
   updatedAt: Date;
 
   // 유저 아이디
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.Review)
+  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   User: User;
 
   // 가게 아이디
-  @ManyToOne(() => Store, (store) => store.id)
+  @ManyToOne(() => Store, (store) => store.Review)
+  @JoinColumn({ name: 'storeId', referencedColumnName: 'id' })
   Store: Store;
 
   // 메뉴 아이디
+  @ManyToOne(() => Menu, (menu) => menu.Review)
+  @JoinColumn({ name: 'menuId', referencedColumnName: 'id' })
+  Menu: Menu;
 
   // 내용
   @Column()

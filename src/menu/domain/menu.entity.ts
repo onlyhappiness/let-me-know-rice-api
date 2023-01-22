@@ -1,7 +1,12 @@
+import { Review } from 'src/review/domain/review.entity';
+import { Store } from 'src/store/domain/store.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -18,6 +23,9 @@ export class Menu {
   updatedAt: Date;
 
   // 가게 아이디
+  @ManyToOne(() => Store, (store) => store.Menu)
+  @JoinColumn({ name: 'storeId', referencedColumnName: 'id' })
+  Store: Store;
 
   // 카테고리
   @Column()
@@ -30,6 +38,10 @@ export class Menu {
   // 가격
   @Column()
   price: string;
+
+  // 리뷰
+  @OneToMany(() => Review, (review) => review.Menu)
+  Review: Review;
 
   // 메뉴사진
 

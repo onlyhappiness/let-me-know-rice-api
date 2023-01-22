@@ -1,7 +1,11 @@
+import { Favorite } from 'src/favorite/domain/favorite.entity';
+import { Menu } from 'src/menu/domain/menu.entity';
+import { Review } from 'src/review/domain/review.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -45,9 +49,17 @@ export class Store {
   @Column()
   closedDays: string;
 
-  // 찜수
+  // 찜
+  @OneToMany(() => Favorite, (favorite) => favorite.Store)
+  Favorite: Favorite;
 
-  // 리뷰수
+  // 리뷰
+  @OneToMany(() => Review, (review) => review.Store)
+  Review: Review;
+
+  // 메뉴
+  @OneToMany(() => Menu, (menu) => menu.Store)
+  Menu: Menu;
 
   // 평점
 
