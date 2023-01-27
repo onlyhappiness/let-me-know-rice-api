@@ -1,50 +1,13 @@
-## 라이브러리
-
-### axios
-
-- axios
-- @nestjs/axios
+## 참고
 
 <br>
-
-### run-script-webpack-plugin
-
-[run-script-webpack-plugin]()
-
 <br>
 
-### webpack-node-externals
+### 사용한 라이브러리
 
-[webpack-node-externals]()
-
-<br>
-
-### swagger
-
-- @nestjs/swagger
-
-- swagger-ui-express
-
-- typeorm-naming-strategies
+[라이브러리]()
 
 <br>
-
-### mysql2
-
 <br>
 
-### typeorm
-
-- @nestjs/typeorm
-
-- typeorm
-
-<br>
-
-### class-transformer
-
-<br>
-
-### class-validator
-
-<br>
+### ERD

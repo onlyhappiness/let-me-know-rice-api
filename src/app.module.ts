@@ -7,6 +7,7 @@ import { FavoriteModule } from './favorite/favorite.module';
 import { StoreModule } from './store/store.module';
 import { ReviewModule } from './review/review.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     FavoriteModule,
     StoreModule,
     ReviewModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
