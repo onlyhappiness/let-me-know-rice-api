@@ -9,6 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+
 @Entity({ name: 'user' })
 export class User {
   @PrimaryGeneratedColumn()
@@ -21,18 +23,26 @@ export class User {
   updatedAt: Date;
 
   // 아이디
+  @IsString()
+  @IsNotEmpty()
   @Column()
   signname: string;
 
   // 비밀번호
+  @IsString()
+  @IsNotEmpty()
   @Column()
   password: string;
 
   // 이름
+  @IsString()
+  @IsNotEmpty()
   @Column()
   name: string;
 
   // 이메일
+  @IsEmail()
+  @IsNotEmpty()
   @Column()
   email: string;
 
