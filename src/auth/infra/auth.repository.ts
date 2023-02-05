@@ -7,7 +7,7 @@ export class AuthRepository {
   constructor(private readonly connection: Connection) {}
 
   // 회원가입
-  async createUser(data): Promise<any> {
+  async createUser(data: any): Promise<any> {
     const queryRunner = this.connection.createQueryRunner();
 
     await queryRunner.connect();
@@ -33,7 +33,22 @@ export class AuthRepository {
   }
 
   // 로그인
-  async login() {
-    return '로그인';
+  async login(body: any) {
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+
+    // const { signname, password } = body;
+
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.commitTransaction();
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw new HttpException(error, 400);
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

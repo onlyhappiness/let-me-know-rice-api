@@ -36,8 +36,24 @@ export class AuthService {
   // 유저 로그인
   async login(body: LoginRequestDto) {
     try {
-      console.log('body: ', body);
-      return '유저 로그인';
+      const { signname, password } = body;
+
+      const hashedPassword = await bcrypt.hash(password, 12);
+
+      // TODO: 유저 체크
+
+      const user = {
+        signname,
+        password: hashedPassword,
+      };
+
+      const accessToken = this.jwtService.sign(user, {
+        secret: process.env.JWT_ACESS_TOKEN_SECRET,
+        expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME,
+      });
+      return {
+        accessToken,
+      };
     } catch (errror) {
       console.log('err: ', error);
       throw new HttpException(error, 400);
