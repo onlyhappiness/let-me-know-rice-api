@@ -6,6 +6,10 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { UserModule } from './user/user.module';
+import { FavoriteModule } from './favorite/favorite.module';
+import { MenuModule } from './menu/menu.module';
+import { ReviewModule } from './review/review.module';
+import { StoreModule } from './store/store.module';
 import * as Joi from 'joi';
 
 const typeOrmModuleOptions = {
@@ -45,6 +49,10 @@ const typeOrmModuleOptions = {
     TypeOrmModule.forRootAsync(typeOrmModuleOptions),
     AuthModule,
     UserModule,
+    FavoriteModule,
+    MenuModule,
+    ReviewModule,
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],
