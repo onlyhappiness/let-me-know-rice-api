@@ -19,6 +19,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({
       where: { signname },
     });
+    console.log('user:', user);
     if (!user) throw new Error();
 
     const { password, ...withoutPassword } = user;
@@ -30,7 +31,9 @@ export class AuthService {
   async createUser(body: UserRegisterDTO) {
     const { signname, password, name, phone, email } = body;
 
-    const duplicateUser = await this.findUserById(signname);
+    const duplicateUser = await this.userRepository.findOne({
+      where: { signname },
+    });
     if (duplicateUser) {
       throw new UnauthorizedException('이미 사용중인 아이디입니다.');
     }
@@ -51,6 +54,7 @@ export class AuthService {
     });
 
     const { password: userPassword, ...withoutPassword } = user;
+
     return withoutPassword;
   }
 
