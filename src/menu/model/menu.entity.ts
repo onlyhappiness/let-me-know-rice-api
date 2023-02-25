@@ -1,4 +1,4 @@
 import { Entity } from 'typeorm';
 
 @Entity({ name: 'menu' })
-export class Menu {}
+export class MenuEntity {}

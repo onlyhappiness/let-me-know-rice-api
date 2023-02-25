@@ -12,6 +12,7 @@ import { ReviewModule } from './review/review.module';
 import { StoreModule } from './store/store.module';
 import * as Joi from 'joi';
 import { UserEntity } from './user/model/user.entity';
+import { StoreEntity } from './store/model/store.entity';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -24,7 +25,7 @@ const typeOrmModuleOptions = {
     username: configService.get('DB_USERNAME'),
     password: configService.get('DB_PASSWORD'),
     database: configService.get('DB_DATABASE'),
-    entities: [UserEntity],
+    entities: [UserEntity, StoreEntity],
     synchronize: true, // ! set 'false' in production
     autoLoadEntities: true,
     logging: true,

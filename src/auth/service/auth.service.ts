@@ -19,7 +19,6 @@ export class AuthService {
     const user = await this.userRepository.findOne({
       where: { signname },
     });
-    console.log('user:', user);
     if (!user) throw new Error();
 
     const { password, ...withoutPassword } = user;
