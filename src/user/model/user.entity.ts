@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity({ name: 'user' })
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -41,4 +41,9 @@ export class User {
   @IsNotEmpty()
   @Column()
   email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Column()
+  phone: string;
 }

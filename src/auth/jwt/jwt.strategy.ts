@@ -13,19 +13,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET,
+      secretOrKey: process.env.JWT_ACESS_TOKEN_SECRET,
       ignoreExpiration: true,
     });
   }
 
-  // async validate(payload: Payload) {
-  //   const { signname } = payload;
+  async validate(payload: Payload) {
+    const { signname } = payload;
 
-  //   const user = await this.authService.findUserById(signname);
-  //   if (user) {
-  //     return user;
-  //   } else {
-  //     throw new HttpException('Unauthorized', 401);
-  //   }
-  // }
+    const user = await this.authService.findUserById(signname);
+    if (user) {
+      return user;
+    } else {
+      throw new HttpException('Unauthorized', 401);
+    }
+  }
 }
