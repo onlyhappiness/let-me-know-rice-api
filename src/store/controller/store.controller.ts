@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CreateStoreDTO } from '../dto/store.create.dto';
 import { StoreService } from '../service/store.service';
@@ -22,6 +22,11 @@ export class StoreController {
   }
 
   // 가게 상세 보기
+  @UseGuards(JwtAuthGuard)
+  @Get('/:storeId')
+  async findStore(@Param('storeId') storeId: number) {
+    return await this.storeService.findStore(storeId);
+  }
 
   // 가게 수정
 

@@ -1,6 +1,7 @@
 import {
   HttpException,
   Injectable,
+  Param,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -39,6 +40,19 @@ export class StoreService {
 
   //** 가게 전체 보기 */
   async findStoreAll() {
-    return '가게 전체 보기';
+    const store = this.storeRepository.find();
+    return store;
+  }
+
+  //** 가게 상세 보기 */
+  async findStore(storeId: number) {
+    const store = this.storeRepository.findOne({
+      where: { id: storeId },
+    });
+    if (!store) {
+      throw new HttpException('해당 가게가 존재하지 않습니다.', 400);
+    }
+
+    return store;
   }
 }
