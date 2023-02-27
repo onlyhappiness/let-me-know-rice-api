@@ -1,8 +1,8 @@
 import { PickType } from '@nestjs/swagger';
 import { extend } from 'joi';
-import { StoreEntity } from '../model/store.entity';
+import { Store } from '../model/store.entity';
 
-export class CreateStoreDTO extends PickType(StoreEntity, [
+export class CreateStoreDTO extends PickType(Store, [
   'name',
   'category',
   'address',

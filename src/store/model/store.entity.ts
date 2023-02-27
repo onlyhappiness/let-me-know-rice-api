@@ -1,14 +1,16 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import { Favorite } from 'src/favorite/model/favorite.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'store' })
-export class StoreEntity {
+export class Store {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -56,6 +58,10 @@ export class StoreEntity {
   @IsString()
   @Column()
   closeedDays: string;
+
+  // 찜
+  @OneToMany(() => Favorite, (favorite) => favorite.Store)
+  Favorite: Favorite;
 
   // 평점
 

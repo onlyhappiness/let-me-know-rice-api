@@ -7,13 +7,13 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateStoreDTO } from '../dto/store.create.dto';
-import { StoreEntity } from '../model/store.entity';
+import { Store } from '../model/store.entity';
 
 @Injectable()
 export class StoreService {
   constructor(
-    @InjectRepository(StoreEntity)
-    private readonly storeRepository: Repository<StoreEntity>,
+    @InjectRepository(Store)
+    private readonly storeRepository: Repository<Store>,
   ) {}
 
   //** 가게 생성 */

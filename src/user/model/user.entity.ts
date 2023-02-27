@@ -1,14 +1,17 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { Favorite } from 'src/favorite/model/favorite.entity';
+import { ReviewEntity } from 'src/review/model/review.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'user' })
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -46,4 +49,10 @@ export class UserEntity {
   @IsNotEmpty()
   @Column()
   phone: string;
+
+  // Favorite
+  @OneToMany(() => Favorite, (favorite) => favorite.User)
+  Favorite: Favorite;
+
+  // Review
 }
