@@ -1,7 +1,11 @@
-import { PickType } from '@nestjs/swagger';
-import { Favorite } from '../model/favorite.entity';
+import { IsInt, IsNotEmpty } from 'class-validator';
 
-export class CreateFavoriteDTO extends PickType(Favorite, [
-  'User',
-  'Store',
-] as const) {}
+export class CreateFavoriteDTO {
+  @IsNotEmpty()
+  @IsInt()
+  userId: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  storeId: number;
+}

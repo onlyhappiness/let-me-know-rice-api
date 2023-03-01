@@ -22,29 +22,19 @@ export class Favorite {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  // @IsNotEmpty()
-  // @IsNumber()
-  // @Column()
-  // userId: number;
-
-  // @IsNotEmpty()
-  // @IsNumber()
-  // @Column()
-  // storeId: number;
-
   // 유저
   @ManyToOne(() => User, (user) => user.Favorite, {
     onDelete: 'SET NULL',
-    onUpdate: 'CASCADE',
   })
-  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
+  @JoinColumn()
+  // @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   User: User;
 
   // 가게
   @ManyToOne(() => Store, (store) => store.Favorite, {
     onDelete: 'SET NULL',
-    onUpdate: 'CASCADE',
   })
-  @JoinColumn({ name: 'storeId', referencedColumnName: 'id' })
+  @JoinColumn()
+  // @JoinColumn({ name: 'store_id', referencedColumnName: 'id' })
   Store: Store;
 }
