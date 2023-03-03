@@ -18,7 +18,7 @@ export class StoreService {
 
   //** 가게 생성 */
   async createStore(body: CreateStoreDTO) {
-    const { name, category, address, phone } = body;
+    const { name, address } = body;
     // console.log('store: ', store);
     const duplicateStore = await this.storeRepository.findOne({
       where: { name },

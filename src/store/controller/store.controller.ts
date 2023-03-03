@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CreateStoreDTO } from '../dto/store.create.dto';
 import { StoreService } from '../service/store.service';
@@ -7,22 +8,22 @@ import { StoreService } from '../service/store.service';
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
-  // 가게 생성
   @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: '가게 생성' })
   @Post()
   async createStore(@Body() store: CreateStoreDTO) {
     return await this.storeService.createStore(store);
   }
 
-  // 가게 전체 보기
   @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: '가게 전체보기' })
   @Get()
   async findStoreAll() {
     return await this.storeService.findStoreAll();
   }
 
-  // 가게 상세 보기
   @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: '가게 상세보기' })
   @Get('/:storeId')
   async findStore(@Param('storeId') storeId: number) {
     return await this.storeService.findStore(storeId);

@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Favorite } from 'src/favorite/model/favorite.entity';
+import { Menu } from 'src/menu/model/menu.entity';
 import {
   Column,
   CreateDateColumn,
@@ -62,6 +63,10 @@ export class Store {
   // 찜
   @OneToMany(() => Favorite, (favorite) => favorite.Store)
   Favorite: Favorite;
+
+  // 메뉴
+  @OneToMany(() => Menu, (menu) => menu.Store)
+  Menu: Menu;
 
   // 평점
 
