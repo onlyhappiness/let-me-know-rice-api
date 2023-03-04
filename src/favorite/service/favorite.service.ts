@@ -3,14 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
 import { Store } from 'src/store/model/store.entity';
 import { User } from 'src/user/model/user.entity';
-import { Connection, QueryRunner, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateFavoriteDTO } from '../dto/favorite.create.dto';
 import { Favorite } from '../model/favorite.entity';
 
 @Injectable()
 export class FavoriteService {
   constructor(
-    private readonly connection: Connection,
     @InjectRepository(Favorite)
     private readonly favoriteRepository: Repository<Favorite>,
     @InjectRepository(User)

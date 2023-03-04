@@ -26,8 +26,8 @@ export class Menu {
   Store: Store;
 
   // 카테고리
-  @Column()
-  category: string;
+  // @Column()
+  // category: string;
 
   // 메뉴이름
   @Column()
