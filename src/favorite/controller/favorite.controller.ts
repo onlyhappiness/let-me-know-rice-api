@@ -10,7 +10,6 @@ import { FavoriteService } from '../service/favorite.service';
 export class FavoriteController {
   constructor(private readonly favoriteService: FavoriteService) {}
 
-  // FIXME: user-decorator
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '찜한 상품 보기' })
   @Get()
@@ -29,7 +28,7 @@ export class FavoriteController {
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '찜한 상품 삭제' })
   @Delete()
-  async deleteFavorite() {
-    return await this.favoriteService.deleteFavorite();
+  async deleteFavorite(@CurrentUser() user: Users) {
+    return await this.favoriteService.deleteFavorite(user);
   }
 }

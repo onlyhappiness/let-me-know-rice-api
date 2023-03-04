@@ -1,7 +1,7 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
-import { Store } from 'src/store/model/store.entity';
+import { StoreService } from 'src/store/service/store.service';
 import { Repository } from 'typeorm';
 import { CreateMenuDTO } from '../dto/menu.create.dto';
 import { Menu } from '../model/menu.entity';
@@ -11,21 +11,22 @@ export class MenuService {
   constructor(
     @InjectRepository(Menu)
     private readonly menuRepository: Repository<Menu>,
-    @InjectRepository(Store)
-    private readonly storeRepository: Repository<Store>,
+    private readonly storeService: StoreService,
   ) {}
+
+  //** 전체 메뉴 보기 */
+  async findAllMenu(storeId: number) {
+    const menu = await this.menuRepository.find({
+      where: { Store: { id: storeId } },
+    });
+
+    return menu;
+  }
 
   //** 메뉴 생성 */
   async createMenu(body: CreateMenuDTO) {
     const { storeId } = body;
-
-    // TODO: storeRepository 개선
-    const store = await this.storeRepository.findOne({
-      where: { id: storeId },
-    });
-    if (!store) {
-      throw new HttpException('존재하지 않는 가게입니다.', 400);
-    }
+    await this.storeService.findStoreById(storeId);
 
     const menuInfo = {
       Store: storeId,

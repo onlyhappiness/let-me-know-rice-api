@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  Injectable,
-  Param,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateStoreDTO } from '../dto/store.create.dto';
@@ -15,6 +10,17 @@ export class StoreService {
     @InjectRepository(Store)
     private readonly storeRepository: Repository<Store>,
   ) {}
+
+  //** 가게 아이디로 가게찾기 */
+  async findStoreById(storeId) {
+    const store = await this.storeRepository.findOne({
+      where: { id: storeId },
+    });
+    if (!store) {
+      throw new HttpException('존재하지 않는 가게입니다.', 400);
+    }
+    return store;
+  }
 
   //** 가게 생성 */
   async createStore(body: CreateStoreDTO) {

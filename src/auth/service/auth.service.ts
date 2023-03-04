@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from 'src/user/model/user.entity';
@@ -15,7 +19,18 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async findUserById(signname: string) {
+  async findUserById(userId) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+    });
+    if (!user) {
+      throw new HttpException('해당 유저는 존재하지 않습니다.', 400);
+    }
+    return user;
+  }
+
+  //** 사용자 아이디로 찾기 */
+  async findUserBySignname(signname: string) {
     const user = await this.userRepository.findOne({
       where: { signname },
     });

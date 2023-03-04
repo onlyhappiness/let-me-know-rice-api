@@ -1,7 +1,8 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
-import { Store } from 'src/store/model/store.entity';
+import { AuthService } from 'src/auth/service/auth.service';
+import { StoreService } from 'src/store/service/store.service';
 import { Users } from 'src/user/model/user.entity';
 import { Repository } from 'typeorm';
 import { CreateFavoriteDTO } from '../dto/favorite.create.dto';
@@ -12,10 +13,8 @@ export class FavoriteService {
   constructor(
     @InjectRepository(Favorite)
     private readonly favoriteRepository: Repository<Favorite>,
-    @InjectRepository(Users)
-    private readonly userRepository: Repository<Users>,
-    @InjectRepository(Store)
-    private readonly storeRepository: Repository<Store>,
+    private readonly authService: AuthService,
+    private readonly storeService: StoreService,
   ) {}
 
   //** 찜한 내역 보기 */
@@ -34,19 +33,8 @@ export class FavoriteService {
   async createFavorite(body: CreateFavoriteDTO) {
     const { userId, storeId } = body;
 
-    const user = await this.userRepository.findOne({
-      where: { id: userId },
-    });
-    if (!user) {
-      throw new HttpException('해당 유저는 존재하지 않습니다.', 400);
-    }
-
-    const store = await this.storeRepository.findOne({
-      where: { id: storeId },
-    });
-    if (!store) {
-      throw new HttpException('존재하지 않는 가게입니다.', 400);
-    }
+    await this.authService.findUserById(userId);
+    await this.storeService.findStoreById(storeId);
 
     const favoriteInfo = {
       User: userId,
@@ -59,7 +47,7 @@ export class FavoriteService {
   }
 
   //** 찜한 상품 삭제 */
-  async deleteFavorite() {
+  async deleteFavorite(user: Users) {
     return '찜한 상품 삭제';
   }
 }
