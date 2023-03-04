@@ -6,7 +6,7 @@ import { UserRegisterDTO } from '../dto/user.register.dto';
 import { JwtAuthGuard } from '../jwt/jwt.guard';
 import { AuthService } from '../service/auth.service';
 
-@ApiTags('01. auth')
+@ApiTags('AUTH')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

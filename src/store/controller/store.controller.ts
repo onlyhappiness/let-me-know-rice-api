@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CreateStoreDTO } from '../dto/store.create.dto';
 import { StoreService } from '../service/store.service';
 
+@ApiTags('STORE')
 @Controller('store')
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}

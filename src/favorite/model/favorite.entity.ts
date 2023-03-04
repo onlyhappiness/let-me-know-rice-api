@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 import { Store } from 'src/store/model/store.entity';
-import { User } from 'src/user/model/user.entity';
+import { Users } from 'src/user/model/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -23,12 +23,12 @@ export class Favorite {
   updatedAt: Date;
 
   // 유저
-  @ManyToOne(() => User, (user) => user.Favorite, {
+  @ManyToOne(() => Users, (user) => user.Favorite, {
     onDelete: 'SET NULL',
   })
   @JoinColumn()
   // @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
-  User: User;
+  User: Users;
 
   // 가게
   @ManyToOne(() => Store, (store) => store.Favorite, {

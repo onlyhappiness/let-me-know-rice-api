@@ -2,7 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
 import { Store } from 'src/store/model/store.entity';
-import { User } from 'src/user/model/user.entity';
+import { Users } from 'src/user/model/user.entity';
 import { Repository } from 'typeorm';
 import { CreateFavoriteDTO } from '../dto/favorite.create.dto';
 import { Favorite } from '../model/favorite.entity';
@@ -12,15 +12,22 @@ export class FavoriteService {
   constructor(
     @InjectRepository(Favorite)
     private readonly favoriteRepository: Repository<Favorite>,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(Users)
+    private readonly userRepository: Repository<Users>,
     @InjectRepository(Store)
     private readonly storeRepository: Repository<Store>,
   ) {}
 
   //** 찜한 내역 보기 */
-  async findFavorite() {
-    return '찜한 내역 보기';
+  async findFavorite(user: Users) {
+    const { id } = user;
+
+    const favorite = await this.favoriteRepository.find({
+      relations: { Store: true },
+      where: { User: { id } },
+    });
+
+    return favorite;
   }
 
   //** 찜하기 */
@@ -49,5 +56,10 @@ export class FavoriteService {
     const favorite = await this.favoriteRepository.save(createFavorite);
 
     return favorite;
+  }
+
+  //** 찜한 상품 삭제 */
+  async deleteFavorite() {
+    return '찜한 상품 삭제';
   }
 }

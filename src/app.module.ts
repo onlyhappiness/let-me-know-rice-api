@@ -11,7 +11,7 @@ import { MenuModule } from './menu/menu.module';
 import { ReviewModule } from './review/review.module';
 import { StoreModule } from './store/store.module';
 import * as Joi from 'joi';
-import { User } from './user/model/user.entity';
+import { Users } from './user/model/user.entity';
 import { Store } from './store/model/store.entity';
 import { Favorite } from './favorite/model/favorite.entity';
 import { Menu } from './menu/model/menu.entity';
@@ -27,7 +27,7 @@ const typeOrmModuleOptions = {
     username: configService.get('DB_USERNAME'),
     password: configService.get('DB_PASSWORD'),
     database: configService.get('DB_DATABASE'),
-    entities: [User, Store, Favorite, Menu],
+    entities: [Users, Store, Favorite, Menu],
     synchronize: true, // ! set 'false' in production
     autoLoadEntities: true,
     logging: true,
