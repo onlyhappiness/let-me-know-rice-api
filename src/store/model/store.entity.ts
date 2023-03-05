@@ -28,10 +28,10 @@ export class Store {
   name: string;
 
   // 카테고리
-  @IsString()
-  @IsNotEmpty()
-  @Column()
-  category: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // @Column()
+  // category: string;
 
   // 주소
   @IsString()

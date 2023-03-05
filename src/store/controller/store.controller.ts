@@ -1,7 +1,17 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CreateStoreDTO } from '../dto/store.create.dto';
+import { UpdateStoreDTO } from '../dto/store.update.dto';
 import { StoreService } from '../service/store.service';
 
 @ApiTags('STORE')
@@ -30,7 +40,15 @@ export class StoreController {
     return await this.storeService.findStore(storeId);
   }
 
-  // 가게 수정
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: '가게 수정' })
+  @Put()
+  async updateStore(
+    @Body() body: UpdateStoreDTO,
+    @Query('storeId') storeId: number,
+  ) {
+    return await this.storeService.updateStore(body, storeId);
+  }
 
   // 가게 삭제
 }

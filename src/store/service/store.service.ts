@@ -2,6 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateStoreDTO } from '../dto/store.create.dto';
+import { UpdateStoreDTO } from '../dto/store.update.dto';
 import { Store } from '../model/store.entity';
 
 @Injectable()
@@ -60,5 +61,27 @@ export class StoreService {
     }
 
     return store;
+  }
+
+  //** 가게 수정하기 */
+  async updateStore(body: UpdateStoreDTO, storeId) {
+    const { name, address, phone, content, operationHours, closeedDays } = body;
+    await this.findStoreById(storeId);
+
+    await this.storeRepository.update(
+      { id: storeId },
+      {
+        name,
+        address,
+        phone,
+        content,
+        operationHours,
+        closeedDays,
+      },
+    );
+
+    const updateStore = await this.findStoreById(storeId);
+
+    return updateStore;
   }
 }
