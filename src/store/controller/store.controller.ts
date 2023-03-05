@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -50,5 +51,10 @@ export class StoreController {
     return await this.storeService.updateStore(body, storeId);
   }
 
-  // 가게 삭제
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: '가게 삭제' })
+  @Delete()
+  async deleteStore(@Query('storeId') storeId: number) {
+    return await this.storeService.deleteStore(storeId);
+  }
 }
