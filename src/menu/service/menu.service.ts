@@ -4,6 +4,7 @@ import { plainToInstance } from 'class-transformer';
 import { StoreService } from 'src/store/service/store.service';
 import { Repository } from 'typeorm';
 import { CreateMenuDTO } from '../dto/menu.create.dto';
+import { UpdateMenuDTO } from '../dto/menu.update.dto';
 import { Menu } from '../model/menu.entity';
 
 @Injectable()
@@ -23,6 +24,10 @@ export class MenuService {
     return menu;
   }
 
+  async findMenu(menuId) {
+    return '메뉴 상세';
+  }
+
   //** 메뉴 생성 */
   async createMenu(body: CreateMenuDTO) {
     const { storeId } = body;
@@ -37,5 +42,10 @@ export class MenuService {
     const menu = await this.menuRepository.save(createMenu);
 
     return menu;
+  }
+
+  //** 메뉴 수정 */
+  async updateMenu(body: UpdateMenuDTO) {
+    return '메뉴 수정';
   }
 }
