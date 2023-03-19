@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { UserLoginDTO } from '../dto/user.login.dto';
 import { UserRegisterDTO } from '../dto/user.register.dto';
@@ -11,6 +11,12 @@ import { AuthService } from '../service/auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiOkResponse({
+    description: '성공',
+  })
+  @ApiBody({
+    type: UserRegisterDTO,
+  })
   @ApiOperation({ summary: '회원가입' })
   @Post('register')
   async createUser(@Body() body: UserRegisterDTO) {

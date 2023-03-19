@@ -8,7 +8,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { Users } from 'src/user/model/user.entity';
@@ -42,6 +42,9 @@ export class FavoriteController {
 
   // FIXME: user-decorator
   @UseGuards(JwtAuthGuard)
+  @ApiBody({
+    type: CreateFavoriteDTO,
+  })
   @ApiOperation({ summary: '찜하기' })
   @Post()
   async createFavorite(@Body() body: CreateFavoriteDTO) {

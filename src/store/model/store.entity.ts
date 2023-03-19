@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Favorite } from 'src/favorite/model/favorite.entity';
 import { Menu } from 'src/menu/model/menu.entity';
@@ -22,6 +23,10 @@ export class Store {
   updatedAt: Date;
 
   // 가게 이름
+  @ApiProperty({
+    example: '빵집',
+    description: '가게이름',
+  })
   @IsString()
   @IsNotEmpty()
   @Column()
@@ -34,12 +39,20 @@ export class Store {
   // category: string;
 
   // 주소
+  @ApiProperty({
+    example: 'xx로 xx길 xx',
+    description: '주소',
+  })
   @IsString()
   @IsNotEmpty()
   @Column()
   address: string;
 
   // 전화번호
+  @ApiProperty({
+    example: '01022223333',
+    description: '전화번호',
+  })
   @IsNotEmpty()
   @IsNotEmpty()
   @Column()

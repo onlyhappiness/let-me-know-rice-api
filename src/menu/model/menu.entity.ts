@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Store } from 'src/store/model/store.entity';
 import {
   Column,
@@ -30,10 +31,18 @@ export class Menu {
   // category: string;
 
   // 메뉴이름
+  @ApiProperty({
+    example: '마카롱',
+    description: '메뉴이름',
+  })
   @Column()
   name: string;
 
   // 가격
+  @ApiProperty({
+    example: '3000',
+    description: '가격',
+  })
   @Column()
   price: string;
 

@@ -8,7 +8,13 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CreateMenuDTO } from '../dto/menu.create.dto';
 import { UpdateMenuDTO } from '../dto/menu.update.dto';
@@ -44,6 +50,9 @@ export class MenuController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @ApiBody({
+    type: CreateMenuDTO,
+  })
   @ApiOperation({ summary: '메뉴 생성' })
   @Post()
   async createMenu(@Body() body: CreateMenuDTO) {
