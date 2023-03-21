@@ -80,13 +80,12 @@ export class StoreService {
 
   //** 가게 삭제 */
   async deleteStore(storeId: number) {
-    if (!storeId) {
-      throw new HttpException('가게 아이디를 입력해주세요', 401);
-    }
     await this.findStoreById(storeId);
+
     await this.storeRepository.delete({
       id: storeId,
     });
-    return '해당 가게를 삭제하였습니다.';
+    return true;
+    // return '해당 가게를 삭제하였습니다.';
   }
 }

@@ -43,25 +43,29 @@ export class FavoriteService {
   }
 
   //** 찜하기 */
-  async createFavorite(body: CreateFavoriteDTO) {
-    const { userId, storeId } = body;
+  async createFavorite(user: Users, body: CreateFavoriteDTO) {
+    const { id: userId } = user;
 
+    const { storeId } = body;
     await this.authService.findUserById(userId);
     await this.storeService.findStoreById(storeId);
-
     const favoriteInfo = {
       User: userId,
       Store: storeId,
     };
     const createFavorite = plainToInstance(Favorite, favoriteInfo);
     const favorite = await this.favoriteRepository.save(createFavorite);
-
     return favorite;
   }
 
   //** 찜한 상품 수정 */
-  async updateFavorite(body: UpdateFavoriteDTO, favoriteId: number) {
-    const { userId, storeId } = body;
+  async updateFavorite(
+    user: Users,
+    body: UpdateFavoriteDTO,
+    favoriteId: number,
+  ) {
+    const { id: userId } = user;
+    const { storeId } = body;
 
     await this.authService.findUserById(userId);
     await this.storeService.findStoreById(storeId);
@@ -80,7 +84,14 @@ export class FavoriteService {
   }
 
   //** 찜한 상품 삭제 */
-  async deleteFavorite(user: Users) {
-    return '찜한 상품 삭제';
+  async deleteFavorite(favoriteId: number, user: Users) {
+    const { id: userId } = user;
+    await this.authService.findUserById(userId);
+
+    await this.findFavorite(favoriteId);
+
+    await this.favoriteRepository.delete({ id: favoriteId });
+
+    return true;
   }
 }

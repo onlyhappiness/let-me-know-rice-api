@@ -9,7 +9,13 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CreateStoreDTO } from '../dto/store.create.dto';
 import { UpdateStoreDTO } from '../dto/store.update.dto';
@@ -49,6 +55,9 @@ export class StoreController {
 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '가게 수정' })
+  @ApiBody({
+    type: UpdateStoreDTO,
+  })
   @ApiQuery({
     name: 'storeId',
     required: true,
@@ -65,14 +74,14 @@ export class StoreController {
 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '가게 삭제' })
-  @ApiQuery({
+  @ApiParam({
     name: 'storeId',
     required: true,
-    description: '가게아이디',
+    description: '가게 아이디',
     type: 'string',
   })
-  @Delete()
-  async deleteStore(@Query('storeId') storeId: number) {
+  @Delete('/:storeId')
+  async deleteStore(@Param('storeId') storeId: number) {
     return await this.storeService.deleteStore(storeId);
   }
 }

@@ -40,19 +40,24 @@ export class FavoriteController {
     return await this.favoriteService.findFavorite(favoriteId);
   }
 
-  // FIXME: user-decorator
   @UseGuards(JwtAuthGuard)
   @ApiBody({
     type: CreateFavoriteDTO,
   })
   @ApiOperation({ summary: '찜하기' })
   @Post()
-  async createFavorite(@Body() body: CreateFavoriteDTO) {
-    return await this.favoriteService.createFavorite(body);
+  async createFavorite(
+    @CurrentUser() user: Users,
+    @Body() body: CreateFavoriteDTO,
+  ) {
+    return await this.favoriteService.createFavorite(user, body);
   }
 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '찜한 상품 수정' })
+  @ApiBody({
+    type: UpdateFavoriteDTO,
+  })
   @ApiParam({
     name: 'favoriteId',
     required: true,
@@ -63,14 +68,24 @@ export class FavoriteController {
   async updateFavorite(
     @Param('favoriteId') favoriteId: number,
     @Body() body: UpdateFavoriteDTO,
+    @CurrentUser() user: Users,
   ) {
-    return await this.favoriteService.updateFavorite(body, favoriteId);
+    return await this.favoriteService.updateFavorite(user, body, favoriteId);
   }
 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '찜한 상품 삭제' })
-  @Delete()
-  async deleteFavorite(@CurrentUser() user: Users) {
-    return await this.favoriteService.deleteFavorite(user);
+  @ApiParam({
+    name: 'favoriteId',
+    required: true,
+    description: '찜한 상품 아이디',
+    type: 'string',
+  })
+  @Delete('/:favoriteId')
+  async deleteFavorite(
+    @Param('favoriteId') favoriteId: number,
+    @CurrentUser() user: Users,
+  ) {
+    return await this.favoriteService.deleteFavorite(favoriteId, user);
   }
 }
