@@ -28,6 +28,9 @@ export class StoreController {
 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '가게 생성' })
+  @ApiBody({
+    type: CreateStoreDTO,
+  })
   @Post()
   async createStore(@Body() store: CreateStoreDTO) {
     return await this.storeService.createStore(store);

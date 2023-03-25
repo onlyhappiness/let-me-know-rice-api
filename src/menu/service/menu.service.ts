@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
 import { StoreService } from 'src/store/service/store.service';
@@ -24,8 +24,17 @@ export class MenuService {
     return menu;
   }
 
-  async findMenu(menuId) {
-    return '메뉴 상세';
+  //** 메뉴 상세 찾기 */
+  async findMenu(menuId: number) {
+    const menu = await this.menuRepository.findOne({
+      where: { id: menuId },
+      relations: ['Store'],
+    });
+
+    if (!menu) {
+      throw new HttpException('해당 메뉴가 없습니다.', 400);
+    }
+    return menu;
   }
 
   //** 메뉴 생성 */
@@ -45,7 +54,20 @@ export class MenuService {
   }
 
   //** 메뉴 수정 */
-  async updateMenu(body: UpdateMenuDTO) {
-    return '메뉴 수정';
+  async updateMenu(menuId: number, body: UpdateMenuDTO) {
+    await this.findMenu(menuId);
+
+    const { name, price } = body;
+
+    await this.menuRepository.update({ id: menuId }, body);
+    return await this.findMenu(menuId);
+  }
+
+  //** 메뉴 삭제 */
+  async deleteMenu(menuId: number) {
+    await this.findMenu(menuId);
+
+    await this.menuRepository.delete({ id: menuId });
+    return true;
   }
 }

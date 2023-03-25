@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Review } from 'src/review/model/review.entity';
 import { Store } from 'src/store/model/store.entity';
 import {
   Column,
@@ -6,6 +7,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -20,11 +22,6 @@ export class Menu {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  // 가게 아이디
-  @ManyToOne(() => Store, (store) => store.Menu)
-  @JoinColumn()
-  Store: Store;
 
   // 카테고리
   // @Column()
@@ -46,7 +43,14 @@ export class Menu {
   @Column()
   price: string;
 
+  // 가게 아이디
+  @ManyToOne(() => Store, (store) => store.Menu)
+  @JoinColumn()
+  Store: Store;
+
   // 리뷰
+  @OneToMany(() => Review, (review) => review.Menu)
+  Review: Review;
 
   // 메뉴 사진
 

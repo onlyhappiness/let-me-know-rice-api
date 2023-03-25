@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -68,7 +69,17 @@ export class MenuController {
     type: 'string',
   })
   @Put('/:menuId')
-  async updateMenu(@Body() body: UpdateMenuDTO) {
-    return await this.menuService.updateMenu(body);
+  async updateMenu(
+    @Param('menuId') menuId: number,
+    @Body() body: UpdateMenuDTO,
+  ) {
+    return await this.menuService.updateMenu(menuId, body);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: '메뉴 삭제' })
+  @Delete('/:menuId')
+  async deleteMenu(@Param('menuId') menuId: number) {
+    return await this.menuService.deleteMenu(menuId);
   }
 }

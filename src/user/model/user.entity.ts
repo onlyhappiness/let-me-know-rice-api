@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { Favorite } from 'src/favorite/model/favorite.entity';
-import { ReviewEntity } from 'src/review/model/review.entity';
+import { Review } from 'src/review/model/review.entity';
 import {
   Column,
   CreateDateColumn,

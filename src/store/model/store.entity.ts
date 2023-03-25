@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Favorite } from 'src/favorite/model/favorite.entity';
 import { Menu } from 'src/menu/model/menu.entity';
+import { Review } from 'src/review/model/review.entity';
 import {
   Column,
   CreateDateColumn,
@@ -22,7 +23,6 @@ export class Store {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  // 가게 이름
   @ApiProperty({
     example: '빵집',
     description: '가게이름',
@@ -38,7 +38,6 @@ export class Store {
   // @Column()
   // category: string;
 
-  // 주소
   @ApiProperty({
     example: 'xx로 xx길 xx',
     description: '주소',
@@ -48,7 +47,6 @@ export class Store {
   @Column()
   address: string;
 
-  // 전화번호
   @ApiProperty({
     example: '01022223333',
     description: '전화번호',
@@ -58,17 +56,26 @@ export class Store {
   @Column()
   phone: string;
 
-  // 소개글
+  @ApiProperty({
+    example: '간단한 소개글을 입력해주세요',
+    description: '소개글',
+  })
   @IsString()
   @Column()
   content: string;
 
-  // 운영시간
+  @ApiProperty({
+    example: '월,수,금',
+    description: '운영일',
+  })
   @IsString()
   @Column()
   operationHours: string;
 
-  // 휴무일
+  @ApiProperty({
+    example: '화,목',
+    description: '휴무일',
+  })
   @IsString()
   @Column()
   closeedDays: string;
@@ -80,6 +87,9 @@ export class Store {
   // 메뉴
   @OneToMany(() => Menu, (menu) => menu.Store)
   Menu: Menu;
+
+  @OneToMany(() => Review, (review) => review.Store)
+  Review: Review;
 
   // 평점
 
