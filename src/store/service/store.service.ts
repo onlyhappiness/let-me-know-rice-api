@@ -61,7 +61,7 @@ export class StoreService {
 
   //** 가게 수정하기 */
   async updateStore(body: UpdateStoreDTO, storeId) {
-    const { name, address, phone, content, operationHours, closeedDays } = body;
+    const { name, address, phone, content, operationHours, closedDays } = body;
     await this.findStoreById(storeId);
 
     await this.storeRepository.update(
@@ -72,7 +72,7 @@ export class StoreService {
         phone,
         content,
         operationHours,
-        closeedDays,
+        closedDays,
       },
     );
     return await this.findStoreById(storeId);

@@ -43,5 +43,5 @@ export class UpdateStoreDTO {
     example: '화,목',
     description: '휴무일',
   })
-  closeedDays: string;
+  closedDays: string;
 }

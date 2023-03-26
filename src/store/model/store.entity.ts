@@ -78,7 +78,7 @@ export class Store {
   })
   @IsString()
   @Column()
-  closeedDays: string;
+  closedDays: string;
 
   // 찜
   @OneToMany(() => Favorite, (favorite) => favorite.Store)

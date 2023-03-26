@@ -67,7 +67,7 @@ export class StoreController {
     description: '가게아이디',
     type: 'string',
   })
-  @Put()
+  @Put('/:storeId')
   async updateStore(
     @Body() body: UpdateStoreDTO,
     @Query('storeId') storeId: number,
