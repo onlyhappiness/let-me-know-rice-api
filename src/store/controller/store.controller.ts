@@ -36,14 +36,14 @@ export class StoreController {
     return await this.storeService.createStore(store);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '가게 전체보기' })
   @Get()
   async findStoreAll() {
     return await this.storeService.findStoreAll();
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '가게 상세보기' })
   @ApiParam({
     name: 'storeId',

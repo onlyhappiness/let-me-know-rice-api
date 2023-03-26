@@ -1,0 +1,30 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { Column } from 'typeorm';
+
+export class CreateReviewDTO {
+  @ApiProperty({
+    example: 1,
+    description: '가게 아이디',
+  })
+  @IsNotEmpty()
+  @IsInt()
+  storeId: number;
+
+  @ApiProperty({
+    example: 1,
+    description: '메뉴 아이디',
+  })
+  @IsNotEmpty()
+  @IsInt()
+  menuId: number;
+
+  @ApiProperty({
+    example: '내용',
+    description: '내용',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @Column()
+  content: string;
+}
