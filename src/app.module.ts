@@ -3,19 +3,23 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import * as Joi from 'joi';
+
+import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { FavoriteModule } from './favorite/favorite.module';
 import { MenuModule } from './menu/menu.module';
 import { ReviewModule } from './review/review.module';
 import { StoreModule } from './store/store.module';
-import * as Joi from 'joi';
+import { NoticeModule } from './notice/notice.module';
+
 import { Users } from './user/model/user.entity';
 import { Store } from './store/model/store.entity';
 import { Favorite } from './favorite/model/favorite.entity';
 import { Menu } from './menu/model/menu.entity';
 import { Review } from './review/model/review.entity';
+import { Notice } from './notice/model/notice.entity';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -28,7 +32,7 @@ const typeOrmModuleOptions = {
     username: configService.get('DB_USERNAME'),
     password: configService.get('DB_PASSWORD'),
     database: configService.get('DB_DATABASE'),
-    entities: [Users, Store, Favorite, Menu, Review],
+    entities: [Users, Store, Favorite, Menu, Review, Notice],
     synchronize: true, // ! set 'false' in production
     autoLoadEntities: true,
     logging: true,
@@ -58,6 +62,7 @@ const typeOrmModuleOptions = {
     MenuModule,
     ReviewModule,
     StoreModule,
+    NoticeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

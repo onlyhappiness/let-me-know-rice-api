@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { Favorite } from 'src/favorite/model/favorite.entity';
+import { Notice } from 'src/notice/model/notice.entity';
 import { Review } from 'src/review/model/review.entity';
 import {
   Column,
@@ -76,4 +77,10 @@ export class Users {
   Favorite: Favorite;
 
   // Review
+  @OneToMany(() => Review, (review) => review.User)
+  Review: Review;
+
+  // notice
+  @OneToMany(() => Notice, (notice) => notice.User)
+  Notice: Notice;
 }
