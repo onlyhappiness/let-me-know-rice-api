@@ -15,6 +15,19 @@ export class MenuService {
     private readonly storeService: StoreService,
   ) {}
 
+  //** 메뉴 아이디로 메뉴 찾기 */
+  async findMenubyId(menuId: number) {
+    const menu = await this.menuRepository.findOne({
+      where: { id: menuId },
+      relations: ['Store'],
+    });
+
+    if (!menu) {
+      throw new HttpException('해당 메뉴가 없습니다.', 400);
+    }
+    return menu;
+  }
+
   //** 전체 메뉴 보기 */
   async findAllMenu(storeId: number) {
     const menu = await this.menuRepository.find({
@@ -26,15 +39,7 @@ export class MenuService {
 
   //** 메뉴 상세 찾기 */
   async findMenu(menuId: number) {
-    const menu = await this.menuRepository.findOne({
-      where: { id: menuId },
-      relations: ['Store'],
-    });
-
-    if (!menu) {
-      throw new HttpException('해당 메뉴가 없습니다.', 400);
-    }
-    return menu;
+    await this.findMenubyId(menuId);
   }
 
   //** 메뉴 생성 */
@@ -57,7 +62,7 @@ export class MenuService {
   async updateMenu(menuId: number, body: UpdateMenuDTO) {
     await this.findMenu(menuId);
 
-    const { name, price } = body;
+    // const { name, price } = body;
 
     await this.menuRepository.update({ id: menuId }, body);
     return await this.findMenu(menuId);

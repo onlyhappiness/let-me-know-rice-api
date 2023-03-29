@@ -47,8 +47,10 @@ export class FavoriteService {
     const { id: userId } = user;
 
     const { storeId } = body;
+
     await this.authService.findUserById(userId);
     await this.storeService.findStoreById(storeId);
+
     const favoriteInfo = {
       User: userId,
       Store: storeId,
