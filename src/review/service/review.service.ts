@@ -33,7 +33,9 @@ export class ReviewService {
 
   //** 리뷰 보기 */
   async findAllReview() {
-    const review = await this.reviewRepository.find();
+    const review = await this.reviewRepository.find({
+      relations: ['Store', 'Menu'],
+    });
 
     return review;
   }
@@ -46,7 +48,7 @@ export class ReviewService {
   //** 리뷰 생성 */
   async createReview(user: Users, body: CreateReviewDTO) {
     const { id: userId } = user;
-    const { storeId, menuId, content } = body;
+    const { storeId, menuId, title, content } = body;
 
     await this.authService.findUserById(userId);
     await this.storeService.findStoreById(storeId);
@@ -56,6 +58,7 @@ export class ReviewService {
       User: userId,
       Store: storeId,
       Menu: menuId,
+      title,
       content,
     };
     const createReview = plainToInstance(Review, reviewInfo);
@@ -66,7 +69,7 @@ export class ReviewService {
   //** 리뷰 수정 */
   async updateReview(user: Users, body: UpdateReviewDTO, reviewId: number) {
     const { id: userId } = user;
-    const { storeId, menuId, content } = body;
+    const { storeId, menuId, title, content } = body;
 
     await this.authService.findUserById(userId);
     await this.storeService.findStoreById(storeId);
@@ -77,6 +80,7 @@ export class ReviewService {
       User: userId,
       Store: storeId,
       Menu: menuId,
+      title,
       content,
     };
 
