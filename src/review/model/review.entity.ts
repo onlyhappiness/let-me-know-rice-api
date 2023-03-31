@@ -25,6 +25,15 @@ export class Review {
   updatedAt: Date;
 
   @ApiProperty({
+    example: '제목',
+    description: '제목',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @Column()
+  title: string;
+
+  @ApiProperty({
     example: '내용',
     description: '내용',
   })
