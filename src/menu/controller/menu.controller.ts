@@ -68,6 +68,9 @@ export class MenuController {
     description: '메뉴 아이디',
     type: 'string',
   })
+  @ApiBody({
+    type: UpdateMenuDTO,
+  })
   @Put('/:menuId')
   async updateMenu(
     @Param('menuId') menuId: number,
