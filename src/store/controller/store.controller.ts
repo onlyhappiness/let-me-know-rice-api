@@ -53,7 +53,7 @@ export class StoreController {
   })
   @Get('/:storeId')
   async findStore(@Param('storeId') storeId: number) {
-    return await this.storeService.findStore(storeId);
+    return await this.storeService.findStoreById(storeId);
   }
 
   @UseGuards(JwtAuthGuard)

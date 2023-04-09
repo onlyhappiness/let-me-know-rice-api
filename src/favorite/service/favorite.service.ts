@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import { CreateFavoriteDTO } from '../dto/favorite.create.dto';
 import { UpdateFavoriteDTO } from '../dto/favorite.update.dto';
 import { Favorite } from '../model/favorite.entity';
+import { MenuService } from 'src/menu/service/menu.service';
 
 @Injectable()
 export class FavoriteService {
@@ -16,6 +17,7 @@ export class FavoriteService {
     private readonly favoriteRepository: Repository<Favorite>,
     private readonly authService: AuthService,
     private readonly storeService: StoreService,
+    private readonly MenuService: MenuService,
   ) {}
 
   //** 찜한 내역 보기 */
@@ -23,8 +25,8 @@ export class FavoriteService {
     const { id } = user;
 
     const favorite = await this.favoriteRepository.find({
-      relations: { Store: true },
       where: { User: { id } },
+      relations: ['Store'],
     });
 
     return favorite;
