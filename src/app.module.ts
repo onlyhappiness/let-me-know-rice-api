@@ -20,6 +20,7 @@ import { Favorite } from './favorite/model/favorite.entity';
 import { Menu } from './menu/model/menu.entity';
 import { Review } from './review/model/review.entity';
 import { Notice } from './notice/model/notice.entity';
+import { UploadModule } from './upload/upload.module';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -63,6 +64,7 @@ const typeOrmModuleOptions = {
     ReviewModule,
     StoreModule,
     NoticeModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
