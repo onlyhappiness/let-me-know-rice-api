@@ -6,6 +6,7 @@ import { StoreModule } from 'src/store/store.module';
 import { ReviewController } from './controller/review.controller';
 import { Review } from './model/review.entity';
 import { ReviewService } from './service/review.service';
+import { UploadModule } from 'src/upload/upload.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ReviewService } from './service/review.service';
     AuthModule,
     StoreModule,
     MenuModule,
+    UploadModule,
   ],
   providers: [ReviewService],
   controllers: [ReviewController],

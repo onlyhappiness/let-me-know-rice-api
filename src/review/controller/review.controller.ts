@@ -5,7 +5,9 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
@@ -14,6 +16,7 @@ import { Users } from 'src/user/model/user.entity';
 import { CreateReviewDTO } from '../dto/review.create.dto';
 import { UpdateReviewDTO } from '../dto/review.update.dro';
 import { ReviewService } from '../service/review.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('REVIEW')
 @Controller('review')
@@ -43,12 +46,14 @@ export class ReviewController {
   @ApiBody({
     type: CreateReviewDTO,
   })
+  @UseInterceptors(FileInterceptor('image'))
   @Post()
   async createReview(
     @CurrentUser() user: Users,
     @Body() body: CreateReviewDTO,
+    @UploadedFile() image,
   ) {
-    return await this.reviewService.createReview(user, body);
+    return await this.reviewService.createReview(user, body, image);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -16,6 +16,8 @@ export class UploadService {
 
   async uploadFile(image: any) {
     try {
+      if (!image) return '';
+
       const key = uuidv4();
       const response = await this.s3
         .upload({

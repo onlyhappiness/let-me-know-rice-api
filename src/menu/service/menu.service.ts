@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { CreateMenuDTO } from '../dto/menu.create.dto';
 import { UpdateMenuDTO } from '../dto/menu.update.dto';
 import { Menu } from '../model/menu.entity';
+import { UploadService } from 'src/upload/service/upload.service';
 
 @Injectable()
 export class MenuService {
@@ -13,6 +14,7 @@ export class MenuService {
     @InjectRepository(Menu)
     private readonly menuRepository: Repository<Menu>,
     private readonly storeService: StoreService,
+    private readonly uploadService: UploadService,
   ) {}
 
   //** 메뉴 아이디로 메뉴 찾기 */
@@ -43,12 +45,16 @@ export class MenuService {
   }
 
   //** 메뉴 생성 */
-  async createMenu(body: CreateMenuDTO) {
+  async createMenu(body: CreateMenuDTO, image) {
     const { storeId } = body;
     await this.storeService.findStoreById(storeId);
 
+    // 이미지 등록
+    const url = await this.uploadService.uploadFile(image);
+
     const menuInfo = {
       Store: storeId,
+      image: url,
       ...body,
     };
 

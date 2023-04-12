@@ -7,7 +7,9 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -20,6 +22,7 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CreateStoreDTO } from '../dto/store.create.dto';
 import { UpdateStoreDTO } from '../dto/store.update.dto';
 import { StoreService } from '../service/store.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('STORE')
 @Controller('store')
@@ -31,9 +34,10 @@ export class StoreController {
   @ApiBody({
     type: CreateStoreDTO,
   })
+  @UseInterceptors(FileInterceptor('image'))
   @Post()
-  async createStore(@Body() store: CreateStoreDTO) {
-    return await this.storeService.createStore(store);
+  async createStore(@Body() store: CreateStoreDTO, @UploadedFile() image) {
+    return await this.storeService.createStore(store, image);
   }
 
   // @UseGuards(JwtAuthGuard)

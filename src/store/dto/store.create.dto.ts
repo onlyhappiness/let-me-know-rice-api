@@ -4,7 +4,9 @@ import { Store } from '../model/store.entity';
 
 export class CreateStoreDTO extends PickType(Store, [
   'name',
-  // 'category',
   'address',
   'phone',
+  'content',
+  'operationHours',
+  'closedDays',
 ] as const) {}

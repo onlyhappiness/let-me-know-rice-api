@@ -4,12 +4,15 @@ import { Repository } from 'typeorm';
 import { CreateStoreDTO } from '../dto/store.create.dto';
 import { UpdateStoreDTO } from '../dto/store.update.dto';
 import { Store } from '../model/store.entity';
+import { UploadService } from 'src/upload/service/upload.service';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class StoreService {
   constructor(
     @InjectRepository(Store)
     private readonly storeRepository: Repository<Store>,
+    private readonly uploadService: UploadService,
   ) {}
 
   //** 가게 아이디로 가게찾기 */
@@ -35,10 +38,13 @@ export class StoreService {
   }
 
   //** 가게 생성 */
-  async createStore(body: CreateStoreDTO) {
-    const { name, address } = body;
+  async createStore(body: CreateStoreDTO, image) {
+    const { name, address, phone, content, operationHours, closedDays } = body;
+    console.log('body: ', body);
+
     await this.findStoreByName(name);
 
+    // FIXME: 따로 빼기
     const duplicateAddress = await this.storeRepository.findOne({
       where: { address },
     });
@@ -46,7 +52,17 @@ export class StoreService {
       throw new HttpException('이미 사용중인 주소입니다.', 400);
     }
 
-    return await this.storeRepository.save(body);
+    // 이미지 등록
+    const url = await this.uploadService.uploadFile(image);
+
+    const storeInfo = {
+      ...body,
+      image: url,
+    };
+
+    const store = plainToInstance(Store, storeInfo);
+
+    return await this.storeRepository.save(store);
   }
 
   //** 가게 전체 보기 */

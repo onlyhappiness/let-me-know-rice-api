@@ -7,7 +7,9 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -20,6 +22,7 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CreateMenuDTO } from '../dto/menu.create.dto';
 import { UpdateMenuDTO } from '../dto/menu.update.dto';
 import { MenuService } from '../service/menu.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('MENU')
 @Controller('menu')
@@ -51,13 +54,14 @@ export class MenuController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: '메뉴 생성' })
   @ApiBody({
     type: CreateMenuDTO,
   })
-  @ApiOperation({ summary: '메뉴 생성' })
+  @UseInterceptors(FileInterceptor('image'))
   @Post()
-  async createMenu(@Body() body: CreateMenuDTO) {
-    return await this.menuService.createMenu(body);
+  async createMenu(@Body() body: CreateMenuDTO, @UploadedFile() image) {
+    return await this.menuService.createMenu(body, image);
   }
 
   @UseGuards(JwtAuthGuard)
