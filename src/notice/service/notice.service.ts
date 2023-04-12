@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { CreateNoticeDTO } from '../dto/notice.create.dto';
 import { UpdateNoticeDTO } from '../dto/notice.update.dto';
 import { Notice } from '../model/notice.entity';
+import { UploadService } from 'src/upload/service/upload.service';
 
 @Injectable()
 export class NoticeService {
@@ -14,6 +15,7 @@ export class NoticeService {
     @InjectRepository(Notice)
     private readonly noticeRepository: Repository<Notice>,
     private readonly authService: AuthService,
+    private readonly uploadService: UploadService,
   ) {}
 
   //** 공지사항 아이디로 공지사항 찾기 */
@@ -38,17 +40,20 @@ export class NoticeService {
   }
 
   //** 공지사항 등록하기 */
-  async createNotice(user: Users, body: CreateNoticeDTO) {
-    console.log('user:::::::::::::', user);
+  async createNotice(user: Users, body: CreateNoticeDTO, image) {
     const { id: userId } = user;
 
     const { title, content } = body;
     await this.authService.findUserById(userId);
 
+    // 이미지 등록
+    const url = await this.uploadService.uploadFile(image);
+
     const noticeInfo = {
       User: userId,
       title,
       content,
+      image: url,
     };
 
     const createNotice = plainToInstance(Notice, noticeInfo);
@@ -59,8 +64,6 @@ export class NoticeService {
   //** 공지사항 수정 */
   async updateNotice(noticeId: number, body: UpdateNoticeDTO) {
     await this.findNoticeById(noticeId);
-
-    // const { title, content } = body;
 
     await this.noticeRepository.update({ id: noticeId }, body);
     return await this.findNoticeById(noticeId);

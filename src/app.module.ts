@@ -13,6 +13,7 @@ import { MenuModule } from './menu/menu.module';
 import { ReviewModule } from './review/review.module';
 import { StoreModule } from './store/store.module';
 import { NoticeModule } from './notice/notice.module';
+import { UploadModule } from './upload/upload.module';
 
 import { Users } from './user/model/user.entity';
 import { Store } from './store/model/store.entity';
@@ -20,7 +21,7 @@ import { Favorite } from './favorite/model/favorite.entity';
 import { Menu } from './menu/model/menu.entity';
 import { Review } from './review/model/review.entity';
 import { Notice } from './notice/model/notice.entity';
-import { UploadModule } from './upload/upload.module';
+import { Photo } from './upload/model/photo.entity';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -33,7 +34,7 @@ const typeOrmModuleOptions = {
     username: configService.get('DB_USERNAME'),
     password: configService.get('DB_PASSWORD'),
     database: configService.get('DB_DATABASE'),
-    entities: [Users, Store, Favorite, Menu, Review, Notice],
+    entities: [Users, Store, Favorite, Menu, Review, Notice, Photo],
     synchronize: true, // ! set 'false' in production
     autoLoadEntities: true,
     logging: true,

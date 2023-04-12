@@ -88,10 +88,17 @@ export class Store {
   @OneToMany(() => Menu, (menu) => menu.Store)
   Menu: Menu;
 
+  // 리뷰
   @OneToMany(() => Review, (review) => review.Store)
   Review: Review;
 
-  // 평점
-
   // 가게 사진
+  @ApiProperty({
+    example: '사진 url',
+    description: '가게 사진',
+  })
+  @Column()
+  image: string;
+
+  // 평점
 }

@@ -43,6 +43,14 @@ export class Menu {
   @Column()
   price: string;
 
+  // 메뉴 사진
+  @ApiProperty({
+    example: '사진 url',
+    description: '메뉴 사진',
+  })
+  @Column()
+  image: string;
+
   // 가게 아이디
   @ManyToOne(() => Store, (store) => store.Menu)
   @JoinColumn()
@@ -51,8 +59,6 @@ export class Menu {
   // 리뷰
   @OneToMany(() => Review, (review) => review.Menu)
   Review: Review;
-
-  // 메뉴 사진
 
   // 인기여부
 }

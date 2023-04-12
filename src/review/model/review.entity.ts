@@ -42,6 +42,13 @@ export class Review {
   @Column()
   content: string;
 
+  @ApiProperty({
+    example: '사진 url',
+    description: '리뷰 사진',
+  })
+  @Column()
+  image: string;
+
   @ManyToOne(() => Users, (user) => user.Review)
   @JoinColumn()
   User: Users;
