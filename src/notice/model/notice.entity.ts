@@ -46,4 +46,12 @@ export class Notice {
   })
   @JoinColumn()
   User: Users;
+
+  // 사진
+  @ApiProperty({
+    example: '사진 url',
+    description: '사진 url',
+  })
+  @Column()
+  image: string;
 }

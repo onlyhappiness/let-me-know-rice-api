@@ -6,7 +6,9 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
@@ -15,6 +17,7 @@ import { Users } from 'src/user/model/user.entity';
 import { CreateNoticeDTO } from '../dto/notice.create.dto';
 import { UpdateNoticeDTO } from '../dto/notice.update.dto';
 import { NoticeService } from '../service/notice.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('NOTICE')
 @Controller('notice')
@@ -47,12 +50,14 @@ export class NoticeController {
   @ApiBody({
     type: CreateNoticeDTO,
   })
+  @UseInterceptors(FileInterceptor('image'))
   @Post()
   async createNotice(
     @CurrentUser() user: Users,
     @Body() body: CreateNoticeDTO,
+    @UploadedFile() image,
   ) {
-    return await this.noticeService.createNotice(user, body);
+    return await this.noticeService.createNotice(user, body, image);
   }
 
   //** 공지사항 수정 */
