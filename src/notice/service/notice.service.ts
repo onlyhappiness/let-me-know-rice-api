@@ -1,13 +1,12 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { plainToInstance } from 'class-transformer';
 import { AuthService } from 'src/auth/service/auth.service';
 import { Users } from 'src/user/model/user.entity';
 import { Repository } from 'typeorm';
 import { CreateNoticeDTO } from '../dto/notice.create.dto';
 import { UpdateNoticeDTO } from '../dto/notice.update.dto';
 import { Notice } from '../model/notice.entity';
-import { UploadService } from 'src/upload/service/upload.service';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class NoticeService {
@@ -15,7 +14,6 @@ export class NoticeService {
     @InjectRepository(Notice)
     private readonly noticeRepository: Repository<Notice>,
     private readonly authService: AuthService,
-    private readonly uploadService: UploadService,
   ) {}
 
   //** 공지사항 아이디로 공지사항 찾기 */
@@ -40,20 +38,14 @@ export class NoticeService {
   }
 
   //** 공지사항 등록하기 */
-  async createNotice(user: Users, body: CreateNoticeDTO, image) {
+  async createNotice(user: Users, body: CreateNoticeDTO) {
     const { id: userId } = user;
 
-    const { title, content } = body;
     await this.authService.findUserById(userId);
-
-    // 이미지 등록
-    const url = await this.uploadService.uploadFile(image);
 
     const noticeInfo = {
       User: userId,
-      title,
-      content,
-      image: url,
+      ...body,
     };
 
     const createNotice = plainToInstance(Notice, noticeInfo);

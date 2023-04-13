@@ -9,7 +9,6 @@ import { Repository } from 'typeorm';
 import { CreateReviewDTO } from '../dto/review.create.dto';
 import { UpdateReviewDTO } from '../dto/review.update.dro';
 import { Review } from '../model/review.entity';
-import { UploadService } from 'src/upload/service/upload.service';
 
 @Injectable()
 export class ReviewService {
@@ -19,7 +18,6 @@ export class ReviewService {
     private readonly authService: AuthService,
     private readonly storeService: StoreService,
     private readonly MenuService: MenuService,
-    private readonly uploadService: UploadService,
   ) {}
 
   //** 리뷰 아이디를 통해 리뷰 찾기 */
@@ -48,7 +46,7 @@ export class ReviewService {
   }
 
   //** 리뷰 생성 */
-  async createReview(user: Users, body: CreateReviewDTO, image) {
+  async createReview(user: Users, body: CreateReviewDTO) {
     const { id: userId } = user;
     const { storeId, menuId, title, content } = body;
 
@@ -56,16 +54,11 @@ export class ReviewService {
     await this.storeService.findStoreById(storeId);
     await this.MenuService.findMenubyId(menuId);
 
-    // 이미지 등록
-    const url = await this.uploadService.uploadFile(image);
-
     const reviewInfo = {
       User: userId,
       Store: storeId,
       Menu: menuId,
-      image: url,
-      title,
-      content,
+      ...body,
     };
     const createReview = plainToInstance(Review, reviewInfo);
     const review = await this.reviewRepository.save(createReview);

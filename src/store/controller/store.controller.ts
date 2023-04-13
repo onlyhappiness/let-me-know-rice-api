@@ -34,10 +34,9 @@ export class StoreController {
   @ApiBody({
     type: CreateStoreDTO,
   })
-  @UseInterceptors(FileInterceptor('image'))
   @Post()
-  async createStore(@Body() store: CreateStoreDTO, @UploadedFile() image) {
-    return await this.storeService.createStore(store, image);
+  async createStore(@Body() store: CreateStoreDTO) {
+    return await this.storeService.createStore(store);
   }
 
   // @UseGuards(JwtAuthGuard)

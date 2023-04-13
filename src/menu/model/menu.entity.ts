@@ -48,7 +48,9 @@ export class Menu {
     example: '사진 url',
     description: '메뉴 사진',
   })
-  @Column()
+  @Column({
+    nullable: true,
+  })
   image: string;
 
   // 가게 아이디

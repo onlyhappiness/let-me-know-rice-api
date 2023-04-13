@@ -50,14 +50,12 @@ export class NoticeController {
   @ApiBody({
     type: CreateNoticeDTO,
   })
-  @UseInterceptors(FileInterceptor('image'))
   @Post()
   async createNotice(
     @CurrentUser() user: Users,
     @Body() body: CreateNoticeDTO,
-    @UploadedFile() image,
   ) {
-    return await this.noticeService.createNotice(user, body, image);
+    return await this.noticeService.createNotice(user, body);
   }
 
   //** 공지사항 수정 */

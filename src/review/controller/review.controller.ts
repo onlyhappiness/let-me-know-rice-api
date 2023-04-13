@@ -46,14 +46,12 @@ export class ReviewController {
   @ApiBody({
     type: CreateReviewDTO,
   })
-  @UseInterceptors(FileInterceptor('image'))
   @Post()
   async createReview(
     @CurrentUser() user: Users,
     @Body() body: CreateReviewDTO,
-    @UploadedFile() image,
   ) {
-    return await this.reviewService.createReview(user, body, image);
+    return await this.reviewService.createReview(user, body);
   }
 
   @UseGuards(JwtAuthGuard)

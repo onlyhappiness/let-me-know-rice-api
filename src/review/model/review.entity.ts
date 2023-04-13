@@ -46,7 +46,9 @@ export class Review {
     example: '사진 url',
     description: '리뷰 사진',
   })
-  @Column()
+  @Column({
+    nullable: true,
+  })
   image: string;
 
   @ManyToOne(() => Users, (user) => user.Review)

@@ -58,10 +58,9 @@ export class MenuController {
   @ApiBody({
     type: CreateMenuDTO,
   })
-  @UseInterceptors(FileInterceptor('image'))
   @Post()
-  async createMenu(@Body() body: CreateMenuDTO, @UploadedFile() image) {
-    return await this.menuService.createMenu(body, image);
+  async createMenu(@Body() body: CreateMenuDTO) {
+    return await this.menuService.createMenu(body);
   }
 
   @UseGuards(JwtAuthGuard)

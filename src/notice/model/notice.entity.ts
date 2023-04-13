@@ -52,6 +52,8 @@ export class Notice {
     example: '사진 url',
     description: '사진 url',
   })
-  @Column()
+  @Column({
+    nullable: true,
+  })
   image: string;
 }

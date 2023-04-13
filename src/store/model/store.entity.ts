@@ -97,7 +97,9 @@ export class Store {
     example: '사진 url',
     description: '가게 사진',
   })
-  @Column()
+  @Column({
+    nullable: true,
+  })
   image: string;
 
   // 평점
