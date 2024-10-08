@@ -3,7 +3,8 @@ import { User } from 'src/user/domain/entity/user.entity';
 
 export class RegisterUserDTO extends PickType(User, [
   'method',
-  // 'account',
   'email',
   'password',
+  'name',
+  'nickname',
 ] as const) {}

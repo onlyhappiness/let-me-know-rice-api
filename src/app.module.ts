@@ -7,6 +7,9 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { JoiObject, MongoDBConfig } from './config/database.config';
 import { UserModule } from './user/user.module';
+import { StoreModule } from './store/store.module';
+import { S3Module } from './s3/s3.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -17,6 +20,9 @@ import { UserModule } from './user/user.module';
     MongooseModule.forRootAsync(MongoDBConfig),
     AuthModule,
     UserModule,
+    StoreModule,
+    S3Module,
+    ImageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

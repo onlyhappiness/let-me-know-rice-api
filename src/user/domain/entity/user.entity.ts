@@ -39,17 +39,6 @@ export class User extends Document {
   @IsNotEmpty()
   email: string;
 
-  // @ApiProperty({
-  //   description: 'account',
-  //   required: true,
-  //   maxLength: 20,
-  // })
-  // @Prop({ required: true })
-  // @IsNotEmpty()
-  // @MinLength(3)
-  // @MaxLength(20)
-  // account: string;
-
   @ApiProperty({
     description: 'password',
     required: true,
@@ -62,6 +51,31 @@ export class User extends Document {
   @MinLength(8)
   @MaxLength(20)
   password: string;
+
+  @ApiProperty({
+    description: 'name',
+    required: true,
+    minLength: 2,
+    maxLength: 20,
+  })
+  @Prop({ required: true })
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(2)
+  name: string;
+
+  @ApiProperty({
+    description: 'nickname',
+    required: true,
+    minLength: 2,
+    maxLength: 20,
+  })
+  @Prop({ required: true })
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(2)
+  @MaxLength(20)
+  nickname: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
