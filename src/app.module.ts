@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { StoreModule } from './store/store.module';
 import { S3Module } from './s3/s3.module';
 import { ImageModule } from './image/image.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ImageModule } from './image/image.module';
     StoreModule,
     S3Module,
     ImageModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService],

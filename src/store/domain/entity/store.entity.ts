@@ -46,14 +46,18 @@ export class Store extends Document {
   @IsNotEmpty()
   longitude: number;
 
-  // image
-  //   @ApiProperty({
-  //     description: 'store image',
-  //     required: false,
-  //     type: () => Image,
-  //   })
-  //   @Prop({ type: Image, required: false })
-  //   image?: Image;
+  // @ApiProperty({
+  //   description: 'image',
+  //   required: false,
+  // })
+  // @Prop({ type: SchemaTypes.ObjectId, ref: 'images' })
+  // imageId?: string;
 }
 
 export const StoreSchema = SchemaFactory.createForClass(Store);
+
+// StoreSchema.virtual('image', {
+//   ref: 'images',
+//   localField: 'image',
+//   foreignField: '_id',
+// });
