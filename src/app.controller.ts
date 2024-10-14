@@ -23,7 +23,7 @@ export class AppController {
 
   @Post('/test/upload')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file: any) {
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
     return this.s3Service.uploadFile(file);
   }
 }

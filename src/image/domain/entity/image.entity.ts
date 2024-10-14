@@ -1,4 +1,4 @@
-import { Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 import { Document } from 'mongoose';
@@ -8,13 +8,15 @@ import { Document } from 'mongoose';
   timestamps: true,
 })
 export class Image extends Document {
-  @ApiProperty({ description: 'url' })
+  @ApiProperty({ description: 'url', required: true })
+  @Prop({ required: true })
   @IsString()
   url: string;
 
-  @ApiProperty({ description: 'key' })
+  @ApiProperty({ description: 'hash', required: true })
+  @Prop({ required: true })
   @IsString()
-  key: string;
+  hash: string;
 }
 
 export const ImageSchema = SchemaFactory.createForClass(Image);
