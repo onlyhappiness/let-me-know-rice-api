@@ -38,15 +38,15 @@ export class Review extends Document {
 export const ReviewSchema = SchemaFactory.createForClass(Review);
 
 ReviewSchema.virtual('user', {
-  ref: 'users',
+  ref: 'User',
   localField: 'userId',
   foreignField: '_id',
-  // justOne: true,
+  justOne: true,
 });
 
 ReviewSchema.virtual('store', {
-  ref: 'stores',
+  ref: 'Store',
   localField: 'storeId',
   foreignField: '_id',
-  // justOne: true
+  justOne: true,
 });
