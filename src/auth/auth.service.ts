@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { omit } from 'es-toolkit';
+import { OAuth2Client } from 'google-auth-library';
 import { Model } from 'mongoose';
 import { User } from 'src/user/domain/entity/user.entity';
 import { UserService } from 'src/user/user.service';
@@ -63,5 +64,19 @@ export class AuthService {
     });
 
     return { accessToken };
+  }
+
+  /** 구글 로그인 */
+  async googleLogin(body) {
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+    const ticket = await client.verifyIdToken({
+      idToken: body.password,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    console.log('client: ', client);
+    console.log('ticket:: ', ticket);
+    return '';
   }
 }

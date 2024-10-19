@@ -34,6 +34,7 @@
     "class-validator": "^0.14.1",
     "crypto": "^1.0.1",
     "es-toolkit": "^1.23.0",
+    "google-auth-library": "^9.14.2",
     "joi": "^17.13.3",
     "mongoose": "^8.7.0",
     "passport": "^0.7.0",

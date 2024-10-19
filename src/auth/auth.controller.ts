@@ -33,4 +33,10 @@ export class AuthController {
   async loginUser(@CurrentUser() currentUser: User) {
     return currentUser;
   }
+
+  @Post('/oauth/google')
+  @ApiOperation({ summary: '구글 로그인' })
+  async googleLogin() {
+    return '';
+  }
 }
