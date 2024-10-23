@@ -1,12 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
+import axios from 'axios';
 import * as bcrypt from 'bcrypt';
 import { omit } from 'es-toolkit';
-import { OAuth2Client } from 'google-auth-library';
 import { Model } from 'mongoose';
 import { User } from 'src/user/domain/entity/user.entity';
 import { UserService } from 'src/user/user.service';
+import { GoogleLoginDTO } from './dto/GoogleLoginDto';
 import { LoginUserDTO } from './dto/LoginUserDto';
 import { RegisterUserDTO } from './dto/RegisterUserDto';
 
@@ -67,16 +68,20 @@ export class AuthService {
   }
 
   /** 구글 로그인 */
-  async googleLogin(body) {
-    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+  async googleLogin(body: GoogleLoginDTO) {
+    const { token } = body;
 
-    const ticket = await client.verifyIdToken({
-      idToken: body.password,
-      audience: process.env.GOOGLE_CLIENT_ID,
-    });
+    const url = `https://www.googleapis.com/oauth2/v1/userinfo`;
 
-    console.log('client: ', client);
-    console.log('ticket:: ', ticket);
-    return '';
+    const params = {
+      access_token: token,
+    };
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    };
+
+    const { data } = await axios.get(url, { params, headers });
+    console.log('response: ', data);
   }
 }

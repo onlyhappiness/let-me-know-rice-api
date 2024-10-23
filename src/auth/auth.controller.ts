@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from 'src/common';
 import { User } from 'src/user/domain/entity/user.entity';
 import { AuthService } from './auth.service';
+import { GoogleLoginDTO } from './dto/GoogleLoginDto';
 import { LoginUserDTO } from './dto/LoginUserDto';
 import { RegisterUserDTO } from './dto/RegisterUserDto';
 import { JwtAuthGuard } from './jwt/jwt.guard';
@@ -36,7 +37,7 @@ export class AuthController {
 
   @Post('/oauth/google')
   @ApiOperation({ summary: '구글 로그인' })
-  async googleLogin() {
-    return '';
+  async googleLogin(@Body() body: GoogleLoginDTO) {
+    return this.authService.googleLogin(body);
   }
 }
