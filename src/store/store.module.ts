@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CommonService } from 'src/common/common.service';
 import { Store, StoreSchema } from './domain/entity/store.entity';
 import { StoreController } from './store.controller';
 import { StoreService } from './store.service';
@@ -11,6 +12,6 @@ import { StoreService } from './store.service';
     ]),
   ],
   controllers: [StoreController],
-  providers: [StoreService],
+  providers: [StoreService, CommonService],
 })
 export class StoreModule {}

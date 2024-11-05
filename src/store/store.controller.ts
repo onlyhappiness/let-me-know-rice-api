@@ -6,10 +6,12 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { PaginationQueryDTO } from 'src/common/dto/PaginationQueryDto';
 import { CreateStoreDTO } from './dto/CreateStoreDto';
 import { UpdateStoreDTO } from './dto/UpdateStoreDto';
 import { StoreService } from './store.service';
@@ -21,8 +23,8 @@ export class StoreController {
 
   @Get('/')
   @ApiOperation({ summary: '가게 전체 조회' })
-  async getStore() {
-    return this.storeService.getStore();
+  async getStore(@Query() query: PaginationQueryDTO) {
+    return this.storeService.getStore(query);
   }
 
   @Get('/:storeId')

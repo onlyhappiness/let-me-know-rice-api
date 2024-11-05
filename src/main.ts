@@ -3,7 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import chalk from 'chalk';
 import { AppModule } from './app.module';
-import { HttpExceptionFilter, SuccessInterceptor } from './common';
+import { HttpExceptionFilter } from './common/exceptions/http-exceptions.filter';
+import { SuccessInterceptor } from './common/interceptors/success.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,7 +28,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, documentBuilder);
-  SwaggerModule.setup('api', app, document, {
+  SwaggerModule.setup('/v1/docs', app, document, {
     swaggerOptions: {
       apisSorter: 'alpha',
       operationsSorter: 'method',

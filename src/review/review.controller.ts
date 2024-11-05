@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
-import { CurrentUser } from 'src/common';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { User } from 'src/user/domain/entity/user.entity';
 import { CreateReviewDTO } from './dto/CreateReviewDto';
 import { ReviewService } from './review.service';

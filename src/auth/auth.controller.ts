@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CurrentUser } from 'src/common';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { User } from 'src/user/domain/entity/user.entity';
 import { AuthService } from './auth.service';
 import { GoogleLoginDTO } from './dto/GoogleLoginDto';
