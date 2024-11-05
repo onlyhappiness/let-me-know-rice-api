@@ -9,3 +9,12 @@ export interface PaginationResponse<T> {
     hasPreviousPage: boolean;
   };
 }
+
+export interface InfiniteScrollResponse<T> {
+  items: T[];
+  meta: {
+    nextCursor: string | null;
+    hasMore: boolean;
+    limit: number;
+  };
+}

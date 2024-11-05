@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CommonService } from 'src/common/common.service';
+import { CursorQueryDTO } from 'src/common/dto/CursorQueryDto';
 import { PaginationQueryDTO } from 'src/common/dto/PaginationQueryDto';
 import { Store } from './domain/entity/store.entity';
 import { CreateStoreDTO } from './dto/CreateStoreDto';
@@ -10,15 +11,20 @@ import { UpdateStoreDTO } from './dto/UpdateStoreDto';
 @Injectable()
 export class StoreService {
   constructor(
-    private readonly paginationService: CommonService,
+    private readonly commonService: CommonService,
 
     @InjectModel(Store.name) private readonly storeModel: Model<Store>,
   ) {}
 
-  async getStore(query: PaginationQueryDTO) {
+  async getStore(query: PaginationQueryDTO | CursorQueryDTO) {
     // const stores = await this.storeModel.find();
     // return stores;
-    return this.paginationService.paginate(this.storeModel, query, {}, []);
+
+    if ('cursor' in query) {
+      return this.commonService.infiniteScroll(this.storeModel, query, {}, []);
+    }
+
+    return this.commonService.paginate(this.storeModel, query, {}, []);
   }
 
   async getStoreById(storeId: string) {
